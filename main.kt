@@ -198,6 +198,96 @@ private fun gerPriority(letter: String): Int {
 }
 
 
+    
+    class AvenceOfCodeDay4(val list: List<String>) {
+        
+        
+        
+        private fun getFullRange(value: String):String {
+           val firstValue = value.split("-")[0].toInt()
+           val secondValue = value.split("-")[1].toInt()
+           
+           var concat = ""
+           
+           for(i in firstValue..secondValue){
+               val convertedValue = i.toString()
+                concat = concat + convertedValue
+              
+           }
+           
+           return concat 
+       }
+         
+      
+   
+   private fun listOfPair(): MutableList<String> {
+       val rangeList: MutableList<String> = mutableListOf()
+       list.forEach{rangeList.add(getFullRange(it))}
+       println(rangeList)
+       return rangeList 
+   }
+   
+  
+   
+   
+   private fun getPairToCompar(): List<Int> {
+        val numberItaration = List<Int>(listOfPair().size/2){0}
+        
+        return numberItaration
+       
+   }
+   
+   fun getNumberFullContain(): Int {
+       
+       var fulContain = 0
+     var mutablePairList = listOfPair()
+       
+       getPairToCompar().forEach{
+          
+          
+           fulContain += comparePair(mutablePairList.removeAt(0), mutablePairList.removeAt(0))
+           
+           println(fulContain)
+       }
+       
+       return fulContain
+   }
+   
+   private fun comparePair(pair1: String, pair2: String): Int {
+       // println("$pair1 $pair2")
+       var fullContain = 0
+       if(pair1.length == 1) {
+           
+          var last =  pair2.last()
+          val last1 = last.toString().toInt()
+          val firtValue = pair1.toInt()
+          println("$last1" + " primoCaso " + "$firtValue")
+          if(last1 == firtValue) {
+              fullContain = 1
+          }
+          
+          return fullContain
+           
+       } else {
+           val firstOfFirstPay1 = pair1.first().code
+           val secondOfFirstPay1 = pair1.last().code
+           
+           val firstOfSecodPay2 = pair2.first().code
+           val secondOfSceondPay2 = pair2.last().code
+           
+           if(firstOfFirstPay1< firstOfSecodPay2 && secondOfFirstPay1>  secondOfSceondPay2) {
+              // println("secondCaso")
+               fullContain = 1
+           } 
+           
+           return fullContain
+          
+       }
+   }
+        
+}
+
+
 
 fun main() {
 
@@ -283,4 +373,9 @@ fun main() {
      "CrZsJsPPZsGzwwsLwLmpwMDw"
    
    )).getPrioritySum())
+
+
+   val listNumber = listOf("2-4","6-8", "2-3", "4-5", "5-7","7-9", "2-8","3-7", "6-6","4-6", "2-6","4-8")
+
+   println(AvenceOfCodeDay4(listNumber).getNumberFullContain())
 }
